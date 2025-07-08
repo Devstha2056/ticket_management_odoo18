@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_my_tickets_list" model="ir.actions.act_window">
+        <field name="name">My Tickets</field>
+        <field name="res_model">ticket.management</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('user_id', '=', uid)]</field>
+    </record>
+
+    <record id="action_my_tickets_assign" model="ir.actions.act_window">
+        <field name="name">My Tickets</field>
+        <field name="res_model">ticket.management</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('employee_ids_id.user_id', '=', uid)]</field>
+    </record>
+
+</odoo>

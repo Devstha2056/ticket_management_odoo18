@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- list and Form view for TicketType -->
+    <record id="view_ticket_type_list" model="ir.ui.view">
+        <field name="name">ticket.type.list</field>
+        <field name="model">ticket.type</field>
+        <field name="arch" type="xml">
+            <list string="Ticket Type">
+                <field name="sequence"/>
+                <field name="ticket_type_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ticket_type_form" model="ir.ui.view">
+        <field name="name">ticket.type.form</field>
+        <field name="model">ticket.type</field>
+        <field name="arch" type="xml">
+            <form string="Ticket Type">
+                <sheet>
+                    <group>
+                        <field name="ticket_type_id"/>
+                        <field name="sequence"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_ticket_management_type" model="ir.actions.act_window">
+        <field name="name">Create Ticket Types</field>
+        <field name="res_model">ticket.type</field>
+        <field name="view_mode">list,form</field>
+
+    </record>
+
+    <!-- Solution Type View -->
+    <record id="view_solution_type_list" model="ir.ui.view">
+        <field name="name">solution.type.list</field>
+        <field name="model">solution.type</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" string="Application"/>
+                <field name="name" string="sequence"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_solution_type_form" model="ir.ui.view">
+        <field name="name">solution.type.form</field>
+        <field name="model">solution.type</field>
+        <field name="arch" type="xml">
+            <form string="Application Type">
+                <sheet>
+                    <group>
+                        <field name="name" string="Application"/>
+                        <field name="name" string="sequence"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Menu Module View -->
+    <record id="view_menu_module_list" model="ir.ui.view">
+        <field name="name">menu.module.list</field>
+        <field name="model">menu.module</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="parent_id" string="Application"/>
+                <field name="name" string="Module"/>
+
+            </list>
+        </field>
+    </record>
+
+    <record id="view_menu_module_form" model="ir.ui.view">
+        <field name="name">menu.module.form</field>
+        <field name="model">menu.module</field>
+        <field name="arch" type="xml">
+            <form string="Module">
+                <sheet>
+                    <group>
+                        <field name="parent_id" options="{'no_create': True}"/>
+                        <field name="name"/>
+
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Menu Option View -->
+    <record id="view_menu_option_list" model="ir.ui.view">
+        <field name="name">menu.option.list</field>
+        <field name="model">menu.option</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="child_id"/>
+                <field name="name"/>
+
+            </list>
+        </field>
+    </record>
+
+    <record id="view_menu_option_form" model="ir.ui.view">
+        <field name="name">menu.option.form</field>
+        <field name="model">menu.option</field>
+        <field name="arch" type="xml">
+            <form string="Sub Module">
+                <sheet>
+                    <group>
+                        <field name="child_id" options="{'no_create': True}"/>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_solution_type" model="ir.actions.act_window">
+        <field name="name">Application</field>
+        <field name="res_model">solution.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_menu_module" model="ir.actions.act_window">
+        <field name="name">Module</field>
+        <field name="res_model">menu.module</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_menu_option" model="ir.actions.act_window">
+        <field name="name">Sub Module</field>
+        <field name="res_model">menu.option</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    #SLA POLICY
+    <record id="view_sla_policy_list" model="ir.ui.view">
+        <field name="name">sla.policy.list</field>
+        <field name="model">sla.policy</field>
+        <field name="arch" type="xml">
+            <list string="SLA Policy">
+                <field name="sla_name"/>
+                <field name="minutes"/>
+                <field name="days"/>
+                <field name="hours"/>
+                <field name="note"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_sla_policy_form" model="ir.ui.view">
+        <field name="name">sla.policy.form</field>
+        <field name="model">sla.policy</field>
+        <field name="arch" type="xml">
+            <form string="SLA Policy">
+                <sheet>
+                    <!-- Title Section -->
+                    <div class="oe_title">
+                        <h1>
+                            <field name="sla_name" placeholder="Enter SLA Policy Name..." nolabel="1"/>
+                        </h1>
+                    </div>
+
+                    <!-- Main Content -->
+                    <group>
+                        <!-- Description Section -->
+                        <group string="Policy Details" colspan="2">
+                            <field name="description" placeholder="Brief description of the SLA Policy..."
+                                   widget="textarea"
+                                   nolabel="1"/>
+                        </group>
+
+                        <!-- Timing Section -->
+                        <group string="Time Allocation" colspan="2">
+                            <group>
+                                <field name="minutes" placeholder="Minutes"/>
+                                <field name="hours" placeholder="Hours"/>
+                                <field name="days" placeholder="Days"/>
+                                <field name="priority" widget="priority"/>
+                                <field name="working_hours"/>
+
+                            </group>
+
+                        </group>
+                        <group string="Notes" colspan="2">
+                            <field name="note" placeholder="Add any additional notes..." widget="textarea"/>
+                        </group>
+
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_sla_policy" model="ir.actions.act_window">
+        <field name="name">Ticket Management SLA</field>
+        <field name="res_model">sla.policy</field>
+        <field name="view_mode">list,form</field>
+    </record>
+    <record id="view_form_priority_change_wizard" model="ir.ui.view">
+        <field name="name">priority.change.wizard.form</field>
+        <field name="model">priority.change.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="reason" placeholder="Enter the reason for changing the priority"/>
+                </group>
+                <footer>
+                    <button name="confirm_priority_change" string="Confirm" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_priority_change_wizard" model="ir.actions.act_window">
+        <field name="name">Priority Change Wizard</field>
+        <field name="res_model">priority.change.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_ticket_type_form" model="ir.ui.view">
+        <field name="name">image.storage.form</field>
+        <field name="model">image.storage</field>
+        <field name="arch" type="xml">
+            <form string="Ticket Type">
+                <sheet>
+                    <group>
+                        <field name="capture_image" filename="datas_fname" widget="binary"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="action_ticket_management_image" model="ir.actions.act_window">
+        <field name="name">Create Ticket Types</field>
+        <field name="res_model">image.storage</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p>Create, view, and manage tickets for better support.</p>
+        </field>
+    </record>
+</odoo>
+
+
+
+
+

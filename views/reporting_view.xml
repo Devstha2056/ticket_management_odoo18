@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="view_ticket_management_pivot" model="ir.ui.view">
+        <field name="name">ticket.management.pivot</field>
+        <field name="model">ticket.management</field>
+        <field name="arch" type="xml">
+        <pivot string="Tickets Analysis">
+            <field name="state"/>
+            <field name="ticket_type" type="col"/>
+            <field name="priority" type="col"/>
+        </pivot>
+        </field>
+    </record>
+
+
+    <record id="view_ticket_management_graph" model="ir.ui.view">
+        <field name="name">ticket.management.graph</field>
+        <field name="model">ticket.management</field>
+        <field name="arch" type="xml">
+            <graph string="Tickets Overview">
+                <field name="state" type="row" string="Status"/>
+                <field name="create_date" type="col"  interval="month" string="Day of Week"/>
+
+            </graph>
+        </field>
+    </record>
+
+<record id="view_ticket_management_calendar" model="ir.ui.view">
+    <field name="name">ticket.management.calendar</field>
+    <field name="model">ticket.management</field>
+    <field name="arch" type="xml">
+        <calendar string="Tickets Overview" date_start="create_date" date_stop="closed_date" color="state">
+            <field name="random_ticket" string="Ticket Number"/>
+            <field name="ticket_type" string="Ticket Name"/>
+            <field name="assigned_date" string="Assigned To"/>
+            <field name="priority" string="Priority"/>
+        </calendar>
+    </field>
+</record>
+
+
+
+    <record id="action_ticket_management_view" model="ir.actions.act_window">
+        <field name="name">Reporting</field>
+        <field name="res_model">ticket.management</field>
+        <field name="view_mode">kanban,list,graph,pivot,calendar</field>
+        <field name="help" type="html">
+            <p>
+                Create, view, and manage tickets for better support.
+            </p>
+        </field>
+    </record>
+</odoo>

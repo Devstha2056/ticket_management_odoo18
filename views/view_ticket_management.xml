@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- list View -->
+    <record id="view_ticket_management_list" model="ir.ui.view">
+        <field name="name">ticket.management.list</field>
+        <field name="model">ticket.management</field>
+        <field name="arch" type="xml">
+            <list string="Tickets"
+                  decoration-muted="state == 'draft'"
+                  decoration-warning="state == 'client_feedback'"
+                  decoration-info="state == 'acknowledgement'"
+                  decoration-primary="state == 'work_in'"
+                  decoration-success="state == 'closed'"
+                  decoration-danger="state == 'work_out'" multi_edit="1" sample="1" delete="0">
+                <field name="create_date" string="Reported Date"/>
+                <field name="closed_date" string="Closed Date"/>
+                <field name="random_ticket" string="Ticket Number"/>
+                <field name="state" string="Ticket Status" widget="badge"
+                       decoration-success="state == 'closed'"
+                       decoration-info="state != 'closed'"/>
+                <field name="company_id" string="Company"/>
+                <field name="user_id" string="User Name" optional="hide"/>
+                <field name="team_id" string="Department" optional="hide"/>
+
+                <field name="priority" string="Priority" widget="badge"
+                       decoration-danger="priority == 'urgent'"
+                       decoration-warning="priority == 'high'"
+                       decoration-primary="priority == 'medium'"
+                       decoration-muted="priority == 'low'"/>
+                <field name="child_menu" string="Module"/>
+                <field name="grandchild_menu" string="Sub Module"/>
+                <field name="description" string="Ticket Heading"/>
+                <field name="remark" string="Remarks"/>
+                <field name="ticket_type" string="Ticket Type"/>
+                <field name="parent" string="Application" optional="hide"/>
+
+                <field name="sequence_number" string="Sequence" invisible="1"/>
+                <!--                <field name="sla_status_done_count" string="SLA Count" optional="hide"/>-->
+                <field name="employee_ids_id" string="Assign To" optional="hide"/>
+
+
+            </list>
+        </field>
+    </record>
+
+
+    <record id="view_ticket_management_kanban" model="ir.ui.view">
+        <field name="name">ticket.management.kanban</field>
+        <field name="model">ticket.management</field>
+        <field name="arch" type="xml">
+            <kanban string="Tickets">
+                <!-- Declare all fields to be included in the Kanban view -->
+                <field name="create_date"/>
+                <field name="ticket_type"/>
+                <field name="customer_id"/>
+                <field name="parent"/>
+                <field name="child_menu"/>
+                <field name="grandchild_menu"/>
+                <field name="remark"/>
+                <field name="priority"/>
+                <field name="random_code"/>
+                <field name="random_ticket"/>
+                <field name="state"/>
+                <field name="sla_response_status"/>
+                <field name="sla_resolve_status"/>
+                <field name="closed_date"/>
+                <field name="capture_images"/>
+                <field name="sequence_number" invisible="1"/>
+                <field name="user_id" widget="many2one_avatar"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <!-- Kanban card -->
+                        <div t-attf-class="oe_kanban_card oe_kanban_global_click {{ record.state.raw_value ? 'o_state_' + record.state.raw_value : '' }}">
+                            <!-- Ticket information -->
+                            <div class="o_kanban_details">
+                                <div>
+                                    <strong>Remarks:</strong>
+                                    <span t-esc="record.remark.value"/>
+                                </div>
+                                <div>
+                                    <strong>Ticket Number:</strong>
+                                    <span t-esc="record.random_ticket.value"/>
+                                </div>
+                                <div>
+                                    <strong>Reported By:</strong>
+                                    <span t-esc="record.customer_id.value"/>
+                                </div>
+                                <div>
+                                    <strong>Priority:</strong>
+                                    <span t-esc="record.priority.value"/>
+                                </div>
+                                <div>
+                                    <strong>Status:</strong>
+                                    <span t-esc="record.state.value"/>
+                                </div>
+                                <div>
+                                    <strong>Created On:</strong>
+                                    <span t-esc="record.create_date.value"/>
+                                </div>
+                                <div>
+                                    <strong>Closed Date:</strong>
+                                    <span t-esc="record.closed_date.value"/>
+                                </div>
+                                <div>
+                                    <strong>Ticket Type:</strong>
+                                    <span t-esc="record.ticket_type.value"/>
+                                </div>
+                                <div>
+                                    <strong>Application:</strong>
+                                    <span t-esc="record.parent.value"/>
+                                </div>
+                                <div>
+                                    <strong>Module:</strong>
+                                    <span t-esc="record.child_menu.value"/>
+                                </div>
+                                <div>
+                                    <strong>Sub Module:</strong>
+                                    <span t-esc="record.grandchild_menu.value"/>
+                                </div>
+                                <div>
+                                    <strong>SLA Respond:</strong>
+                                    <span t-esc="record.sla_response_status.value"/>
+
+                                </div>
+                                <div>
+                                    <strong>SLA Resolve:</strong>
+                                    <span t-esc="record.sla_resolve_status.value"/>
+                                </div>
+
+                                <div>
+                                    <strong>Attached Image:</strong>
+                                    <field name="capture_images">
+                                        <form editable="bottom">
+                                            <field name="capture_image" widget="image"/>
+                                        </form>
+                                    </field>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="view_ticket_management_form" model="ir.ui.view">
+        <field name="name">ticket.management.form</field>
+        <field name="model">ticket.management</field>
+        <field name="arch" type="xml">
+            <form class="ticket_management_form" string="Ticket Details" create="0">
+
+                <!-- Header with buttons and statusbar -->
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,open,acknowledgement,work_in,work_out,client_feedback,closed"/>
+
+                    <button name="action_confirm"
+                            type="object"
+                            string="Confirm"
+                            invisible="state != 'draft'"
+                            class="btn btn-primary"
+                            confirm="Are you sure to confirm Ticket?"/>
+
+                    <button name="action_closed"
+                            type="object"
+                            string="Closed"
+                           invisible="state != 'client_feedback'"
+                            class="btn btn-danger"/>
+
+                    <button name="action_open"
+                            type="object"
+                            string="Reopen"
+                           invisible="state != 'client_feedback'"
+                            class="btn btn-primary"
+                            confirm="Are you sure to open Ticket?"/>
+
+                    <button name="action_assign"
+                            type="object"
+                            string="Assign"
+                            invisible="state != 'acknowledgement'"
+                            groups="tickets_management.group_employee"
+                            class="btn btn-primary"/>
+
+                    <button name="action_complete"
+                            type="object"
+                            string="Work Delivered"
+                            invisible="state != 'work_in'"
+                            groups="tickets_management.group_employee"
+                            class="btn btn-primary"/>
+
+                    <button name="action_reject"
+                            type="object"
+                            string="Reject"
+                            invisible="state != 'acknowledgement'"
+                            groups="tickets_management.group_admin"
+                            class="btn btn-primary"/>
+
+
+                    <button name="action_acknowledgement"
+                            type="object"
+                            string="Acknowledgement"
+                            invisible="state != 'open'"
+                            groups="tickets_management.group_admin,tickets_management.group_employee"
+                            class="btn btn-primary"/>
+
+                    <button name="action_feedback"
+                            type="object"
+                            string="Feedback"
+                            invisible="state != 'work_out'"
+                            class="btn btn-primary"/>
+
+                    <button name="action_send_email"
+                            type="object"
+                            string="Send Email"
+                            icon="fa-envelope"
+                            groups="tickets_management.group_admin,tickets_management.group_employee"
+                            confirm="Are you sure to send mail?"
+                            class="btn btn-primary"/>
+
+                    <button name="action_open_priority_wizard"
+                            type="object"
+                            string="Change Priority"
+                            groups="tickets_management.group_user"
+                            class="btn-primary"/>
+
+                </header>
+
+                <!-- Main form fields -->
+                <sheet>
+
+
+
+                    <div class="oe_title">
+                            <h1>
+                                <label for="random_ticket" string="Ticket Number" class="oe_edit_only"/>
+                                <field name="random_ticket" string="Ticket Number"
+                                       readonly="state != False"/>
+                            </h1>
+                        </div>
+                    <group>
+
+
+
+                        <field name="ticket_type" string="Ticket Type"
+                               readonly="state != 'draft'" options="{'no_create': True}" required="1"/>
+
+                        <field name="team_id" string="Team"
+                               invisible="state in ('draft','open')"
+
+                              readonly="state != 'acknowledgement'" options="{'no_create': True}"/>
+
+                        <field name="employee_ids_id" string="Assign User"
+                               invisible="state in ('draft','open')"
+
+                              readonly="state != 'acknowledgement'" options="{'no_create': True}"/>
+
+                        <field name="user_id" string="Reported By/Owner"
+
+                               options="{'no_create': True}" readonly="state != 'draft'"
+                               groups="tickets_management.group_admin,tickets_management.group_supervisor"/>
+
+
+                        <field name="company_id" string="Company"
+                               readonly="state != 'draft'" options="{'no_create': True}"
+                               groups="tickets_management.group_admin,tickets_management.group_supervisor"/>
+<!--and  priority  !=  False'-->
+                        <field name="priority" string="Priority"
+                               readonly="state != 'draft'"
+
+                               force_save="True" required="1"/>
+                        <field name="parent" string="Application"
+                               readonly="state != 'draft'" options="{'no_create': True}"
+                               required="1"/>
+
+                        <field name="child_menu" string="Module"
+                               readonly="state != 'draft'" options="{'no_create': True}"/>
+
+                        <field name="grandchild_menu" string="Sub Module"
+                               readonly="state != 'draft'" options="{'no_create': True}"/>
+
+                        <field name="remark" string="Remarks" default_focus="1"
+                               readonly="state == 'closed'"/>
+
+                        <field name="employee_ids" invisible="1"/>
+                        <field name="capture_images" readonly="state != 'draft'"/>
+                    </group>
+                    <group>
+                        <field name="respond_deadline" invisible="1"/>
+                        <field name="resolve_deadline" invisible="1"/>
+                        <field name="sla_response_status" invisible="1"/>
+                        <field name="sla_resolve_status" invisible="1"/>
+
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <sheet>
+                                <field name="description" placeholder="Please Describe Your Ticket"
+                                       readonly="state != 'draft'"/>
+                            </sheet>
+                        </page>
+
+                        <page string="Other Information"
+                              groups="tickets_management.group_admin,tickets_management.group_employee">
+                            <group>
+
+                                <field name="last_stage_update" readonly="state != 'draft'"/>
+                                <field name="phone" widget="phone"/>
+                                <field name="email"/>
+                                <field name="assigned_date" readonly="state != 'draft'"/>
+                                <field name="feedback_date" readonly="state != 'draft'"/>
+                                <field name="closed_date" required="state == 'closed'" readonly="state != 'draft'"/>
+
+                            </group>
+                        </page>
+
+                        <page string="Remarks History"
+                              groups="tickets_management.group_admin,tickets_management.group_employee">
+                            <sheet>
+                                <group>
+                                    <group>
+                                        <field name="all_remarks"/>
+                                    </group>
+                                </group>
+                            </sheet>
+                        </page>
+                        <page string="Customer Rating?">
+                            <sheet>
+                                <group>
+                                    <field name="customer_rating" widget="priority"/>
+                                    <field name="comment" placeholder="Few Words For Us..."/>
+                                </group>
+                            </sheet>
+                        </page>
+
+                    </notebook>
+
+                    <!-- Chatter -->
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" options="{'open_attachments': True}"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ticket_management_search" model="ir.ui.view">
+        <field name="name">ticket.management.search</field>
+        <field name="model">ticket.management</field>
+        <field name="arch" type="xml">
+            <search>
+                <field string="Ticket Number" name="random_ticket"
+                       filter_domain="['|',('random_ticket', 'ilike', self),('random_ticket', 'ilike', self)]"/>
+                <group expand="0" string="Group By">
+                    <separator/>
+                    <filter string="Team" name="Department" domain="[]" context="{'group_by':'team_id'}"/>
+                    <separator/>
+                    <filter string="Support Consultant" name="employee" domain="[]"
+                            context="{'group_by':'employee_ids_id'}"/>
+                    <separator/>
+                    <filter string="Tickets Status" name="status" domain="[]" context="{'group_by':'state'}"/>
+                    <separator/>
+                    <filter string="Priority" name="Priority" domain="[]" context="{'group_by':'priority'}"/>
+                    <separator/>
+                    <filter string="Company" name="Company" domain="[]" context="{'group_by':'company_id'}"/>
+                    <separator/>
+                    <filter string="Created By" name="User" domain="[]" context="{'group_by':'user_id'}"/>
+                </group>
+                <separator/>
+                <filter string="High Priority" name="priority" domain="[('priority', 'in', ['urgent', 'high'])]"/>
+                <separator/>
+                <filter string="Closed Tickets" name="state" domain="[('state','=','closed')]"/>
+                <separator/>
+                <filter string="Open" name="open" domain="[('state','=','open')]"/>
+                <separator/>
+                <filter string="WIP" name="wip" domain="[('state','=','work_in')]"/>
+                <!--                <filter name="today" string="Today" domain="[('create_date', '=', today)]"/>-->
+
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_ticket_management" model="ir.actions.act_window">
+        <field name="name">Raise Support Ticket</field>
+        <field name="res_model">ticket.management</field>
+        <field name="view_mode">list,form,kanban,search</field>
+        <!--        <field name="context">{'search_default_today': 1, }</field>-->
+        <field name="help" type="html">
+            <p>
+                Create, view, and manage tickets for better support.
+            </p>
+
+        </field>
+    </record>
+
+
+</odoo>
+
+

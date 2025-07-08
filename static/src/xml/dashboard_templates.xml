@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--Dashboard template-->
+<template>
+    <t t-name="CustomDashBoard">
+        <div class="oh_dashboards"
+             style="margin-top: 20px;">
+            <div class="container-fluid o_pj_dashboard">
+                <t t-call="HotelOrder"/>
+            </div>
+        </div>
+    </t>
+    <t t-name="HotelOrder">
+        <div class="row main-section">
+            <!--            Total Tickets-->
+            <div class="col-md-3 col-sm-6 total_room dash-card"
+                 t-on-click="(e) => this.total_tickets(e)">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top dash-icon-1 "
+                         style="color:#e39db5;">
+                        <i class="fa fa-ticket fa-lg"/>
+                    </div>
+                    <div class="card-body">
+                        <div class="dash-count">
+                            <t t-esc="total_tickets_count"/>
+                        </div>
+                        <div class="dash-head">Total Tickets</div>
+                    </div>
+                </div>
+            </div>
+            <!-- open Tickets-->
+            <div groups=""
+                 class="col-md-3 col-sm-6 check_in dash-card"
+                 t-on-click="(e) => this.total_open(e)">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top dash-icon-1"
+                         style="color:#87c773;">
+                        <i class="fa fa-sign-in fa-lg"/>
+                    </div>
+                    <div class="card-body">
+                        <div class="dash-count">
+                            <t t-esc="total_open_count"/>
+                        </div>
+                        <div class="dash-head">Open Tickets</div>
+                    </div>
+                </div>
+            </div>
+            <!--            Closed  Tickets-->
+            <div groups=""
+                 class="col-md-3 col-sm-6 available_room dash-card"
+                 t-on-click="(e)=> this.total_closed(e)">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top dash-icon-1"
+                         style="color:#3858d9;">
+                        <i class="fa fa-check-circle text-success fa-lg" title="Closed Ticket"/>
+                    </div>
+                    <div class="card-body">
+                        <div class="dash-count">
+                            <t t-esc="total_closed_count"/>
+                        </div>
+                        <div class="dash-head">Closed Tickets</div>
+                    </div>
+                </div>
+            </div>
+            <!-- wip-->
+              <div groups=""
+                 class="col-md-3 col-sm-6 available_room dash-card"
+                 t-on-click="(e)=> this.total_wip(e)">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top dash-icon-1"
+                         style="color:#3858d9;">
+                        <i class="fa fa-circle-o text-info fa-lg" title="Open Ticket"/>
+                    </div>
+                    <div class="card-body">
+                        <div class="dash-count">
+                            <t t-esc="total_wip_count"/>
+                        </div>
+                        <div class="dash-head">Total WIP</div>
+                    </div>
+                </div>
+            </div>
+            <!-- work delivered-->
+            <div groups=""
+                 class="col-md-3 col-sm-6 available_room dash-card"
+                 t-on-click="(e)=> this.total_wot(e)">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top dash-icon-1"
+                         style="color:#3858d9;">
+                        <i class="fa fa-check-circle fa-lg"/>
+                    </div>
+                    <div class="card-body">
+                        <div class="dash-count">
+                            <t t-esc="total_wot_count"/>
+                        </div>
+                        <div class="dash-head">Total Work Delivered</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Total Staff-->
+            <div groups=""
+                 class="col-md-3 col-sm-6 total_staff dash-card"
+                 t-on-click="(e)=> this.staff(e)">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top dash-icon-1"
+                         style="color:#6e2940;">
+                        <i class="fa fa-group fa-lg"/>
+                    </div>
+                    <div class="card-body">
+                        <div class="dash-count">
+                            <t t-esc="total_staff_count"/>
+                        </div>
+                        <div class="dash-head">Total Staff</div>
+                    </div>
+                </div>
+            </div>
+            <!--            Total Ugrent-->
+          <div groups=""
+                 class="col-md-3 col-sm-6 total_staff dash-card"
+                 t-on-click="(e)=> this.total_urgent(e)">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top dash-icon-1"
+                         style="color:#6e2940;">
+                          <i class="fa fa-exclamation-circle text-danger fa-lg" title="Urgent"/>
+                    </div>
+                    <div class="card-body">
+                        <div class="dash-count">
+                            <t t-esc="total_urgent_count"/>
+                        </div>
+                        <div class="dash-head">Total Urgent</div>
+                    </div>
+                </div>
+            </div>
+             <!--            Total high-->
+          <div groups=""
+                 class="col-md-3 col-sm-6 total_staff dash-card"
+                 t-on-click="(e)=> this.total_high(e)">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top dash-icon-1"
+                         style="color:#6e2940;">
+                         <i class="fa fa-arrow-up text-warning fa-lg" title="High Priority"/>
+                    </div>
+                    <div class="card-body">
+                        <div class="dash-count">
+                            <t t-esc="total_high_count"/>
+                        </div>
+                        <div class="dash-head">Total High</div>
+                    </div>
+                </div>
+            </div>
+             <!--            Total medium-->
+          <div groups=""
+                 class="col-md-3 col-sm-6 total_staff dash-card"
+                 t-on-click="(e)=> this.total_medium(e)">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top dash-icon-1"
+                         style="color:#6e2940;">
+                         <i class="fa fa-circle text-info fa-lg" title="Medium Priority"/>
+                    </div>
+                    <div class="card-body">
+                        <div class="dash-count">
+                            <t t-esc="total_medium_count"/>
+                        </div>
+                        <div class="dash-head">Total Medium</div>
+                    </div>
+                </div>
+            </div>
+             <!--            Total low-->
+          <div groups=""
+                 class="col-md-3 col-sm-6 total_staff dash-card"
+                 t-on-click="(e)=> this.total_low(e)">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-img-top dash-icon-1"
+                         style="color:#6e2940;">
+                         <i class="fa fa-arrow-down text-muted fa-lg" title="Low Priority"/>
+                    </div>
+                    <div class="card-body">
+                        <div class="dash-count">
+                            <t t-esc="total_low_count"/>
+                        </div>
+                        <div class="dash-head">Total Low</div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </t>
+</template>

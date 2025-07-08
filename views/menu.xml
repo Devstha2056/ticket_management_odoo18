@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <menuitem id="menu_ticket_management_root"
+              name="Ticket Management"
+              sequence="-5"/>
+
+    <menuitem id="menu_ticket_management"
+              name="Tickets"
+              parent="menu_ticket_management_root"
+              sequence="10"/>
+
+    <menuitem id="menu_ticket_management_all"
+              name="All Tickets"
+              parent="menu_ticket_management"
+              action="action_ticket_management"
+              groups="tickets_management.group_admin"
+              sequence="10"/>
+
+    <menuitem id="menu_ticket_management_my"
+              name="My Tickets"
+              parent="menu_ticket_management"
+              action="action_my_tickets_list"
+              sequence="15"/>
+
+    <menuitem id="menu_ticket_management_closed"
+              name="Closed Ticket"
+              parent="menu_ticket_management"
+              action="action_ticket_management_list_closed"
+              sequence="20"/>
+
+    <menuitem id="menu_ticket_management_assign"
+              name="Assign Ticket"
+              parent="menu_ticket_management"
+              action="action_my_tickets_assign"
+              groups="tickets_management.group_employee"
+              sequence="20"/>
+
+    <menuitem id="menu_ticket_management_ticket_view"
+              name="Summary"
+              parent="menu_ticket_management_root"
+              action="action_ticket_management_view"
+              sequence="10"/>
+
+    <menuitem id="menu_ticket_management_configuration"
+              name="Configuration"
+              parent="menu_ticket_management_root"
+              groups="tickets_management.group_admin"
+              sequence="20"/>
+
+
+    <menuitem id="menu_ticket_management_ticket_types"
+              name="Ticket Types"
+              parent="menu_ticket_management_configuration"
+              action="action_ticket_management_type"
+              sequence="10"/>
+
+    <menuitem id="menu_ticket_management_team"
+              name="Team"
+              parent="menu_ticket_management_configuration"
+              action="action_ticket_team"
+              sequence="11"/>
+
+    <menuitem id="menu_sla_policy_time"
+              name="SLA Policy"
+              parent="menu_ticket_management_configuration"
+              action="action_sla_policy"
+              sequence="10"/>
+
+    <menuitem id="menu_ticket_management_menu_module"
+              name="Application"
+              parent="menu_ticket_management_configuration"
+              action="action_solution_type"
+              sequence="10"/>
+
+    <menuitem id="menu_ticket_management_module"
+              name="Module"
+              parent="menu_ticket_management_configuration"
+              action="action_menu_module"
+              sequence="10"/>
+
+    <menuitem id="menu_ticket_management_option"
+              name="Sub Module"
+              parent="menu_ticket_management_configuration"
+              action="action_menu_option"
+              sequence="10"/>
+
+</odoo>
+
+
+

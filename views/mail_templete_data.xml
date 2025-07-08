@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="ticket_mail_template" model="mail.template">
+            <field name="name">Ticket Template</field>
+            <field name="model_id" ref="tickets_management.model_ticket_management"/>
+            <field name="subject">Ticket Notification</field>
+            <field name="email_from">shresthadevendra2056@gmail.com</field>
+            <field name="email_to">{{ object.customer_id.email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family:Verdana, Arial,sans-serif; color:#454748; background-color:#F1F1F1; padding:16px;">
+                    <div style="background-color:white; padding:16px; text-align:center;">
+                        <p>Dear <t t-out="object.customer_id.name or 'Customer'"/>,</p>
+                        <p>Your Ticket Number <t t-out="object.random_ticket or ''"/> has been acknowledged. You can track its status by clicking the link below:</p>
+                        <p>
+                            <a t-att-href="object.get_signup_url()"
+                               style="background-color:#875A7B; padding:8px 16px; text-decoration:none; color:#fff; border-radius:5px; font-size:13px;">
+                                Check Ticket Status
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="ticket_mail_template_assign" model="mail.template">
+            <field name="name">Ticket Template</field>
+            <field name="model_id" ref="tickets_management.model_ticket_management"/>
+            <field name="subject">Ticket Assigned</field>
+            <field name="email_from">shresthadevendra2056@gmail.com</field>
+            <field name="email_to">{{ object.employee_ids_id.work_email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family:Verdana, Arial,sans-serif; color:#454748; background-color:#F1F1F1; padding:16px;">
+                    <div style="background-color:white; padding:16px; text-align:center;">
+                        <p>Dear <t t-out="object.employee_ids_id.name or 'Employee'"/>,</p>
+                        <p>Ticket Number <t t-out="object.random_ticket or ''"/> has been Assign to You. You can track its Tickets by clicking the link below:</p>
+                        <p>
+                            <a t-att-href="object.get_signup_url()"
+                               style="background-color:#875A7B; padding:8px 16px; text-decoration:none; color:#fff; border-radius:5px; font-size:13px;">
+                                Check Ticket Status
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="ticket_mail_template_closed" model="mail.template">
+            <field name="name">Ticket Template</field>
+            <field name="model_id" ref="tickets_management.model_ticket_management"/>
+            <field name="subject">Ticket Closed</field>
+            <field name="email_from">shresthadevendra2056@gmail.com</field>
+            <field name="email_to">{{ object.customer_id.email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family:Verdana, Arial,sans-serif; color:#454748; background-color:#F1F1F1; padding:16px;">
+                    <div style="background-color:white; padding:16px; text-align:center;">
+                       <p>Dear <t t-out="object.customer_id.name or 'Customer'"/>,</p>
+                        <p>Your Ticket Number <t t-out="object.random_ticket or ''"/> has been Closed.Thank You!!!!!</p>
+                        <p>
+                            <a t-att-href="object.get_signup_url()"
+                               style="background-color:#875A7B; padding:8px 16px; text-decoration:none; color:#fff; border-radius:5px; font-size:13px;">
+                                Check Ticket Status
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>
+
