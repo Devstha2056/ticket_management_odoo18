@@ -40,7 +40,6 @@
         <field name="arch" type="xml">
             <list>
                 <field name="name" string="Application"/>
-                <field name="name" string="sequence"/>
             </list>
         </field>
     </record>
@@ -53,7 +52,6 @@
                 <sheet>
                     <group>
                         <field name="name" string="Application"/>
-                        <field name="name" string="sequence"/>
                     </group>
                 </sheet>
             </form>

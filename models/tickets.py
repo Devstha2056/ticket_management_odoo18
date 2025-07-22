@@ -415,6 +415,9 @@ class TicketsManagement(models.Model):
         today_utc = pytz.timezone('UTC').localize(today,
                                                   is_dst=False)
         context_today = today_utc.astimezone(pytz.timezone(tz_name))
+
+        company_id=self.env.company.id
+
         total_tickets = self.env['ticket.management'].search_count([])
 
         total_open = self.env['ticket.management'].search_count(
@@ -429,14 +432,22 @@ class TicketsManagement(models.Model):
         total_closed = self.env['ticket.management'].search_count(
             [('state', '=', 'closed')])
 
-        total_urgent= self.env['ticket.management'].search_count(
-            [('priority', '=', 'urgent')])
-        total_high = self.env['ticket.management'].search_count(
-            [('priority', '=', 'high')])
-        total_medium = self.env['ticket.management'].search_count(
-            [('priority', '=', 'medium')])
-        total_low = self.env['ticket.management'].search_count(
-            [('priority', '=', 'low')])
+        total_urgent = self.env['ticket.management'].search_count([
+            ('priority', '=', 'urgent'),
+            ('state', '!=', 'closed')
+        ])
+        total_high = self.env['ticket.management'].search_count([
+            ('priority', '=', 'high'),
+            ('state', '!=', 'closed')
+        ])
+        total_medium = self.env['ticket.management'].search_count([
+            ('priority', '=', 'medium'),
+            ('state', '!=', 'closed')
+        ])
+        total_low = self.env['ticket.management'].search_count([
+            ('priority', '=', 'low'),
+            ('state', '!=', 'closed')
+        ])
 
         staff = self.env['res.users'].search_count(
             [('groups_id', 'in',
@@ -459,5 +470,6 @@ class TicketsManagement(models.Model):
             'total_medium': total_medium,
             'total_low': total_low,
             'staff': staff,
+            'company_id': company_id,
 
         }

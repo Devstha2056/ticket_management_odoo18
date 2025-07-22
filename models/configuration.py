@@ -14,6 +14,14 @@ class TicketType(models.Model):
     ticket_type_id = fields.Char(string='Ticket Type')
     sequence = fields.Integer(string='Sequence', copy=False, index=True)
 
+    @api.model
+    def create(self, vals):
+        if 'sequence' not in vals or vals.get('sequence') == 0:
+            # Find the max sequence and add 1
+            last_sequence = self.search([], order='sequence desc', limit=1).sequence
+            vals['sequence'] = last_sequence + 1 if last_sequence else 1
+        return super(TicketType, self).create(vals)
+
     @api.constrains('sequence')
     def _check_unique_sequence(self):
         for rec in self:

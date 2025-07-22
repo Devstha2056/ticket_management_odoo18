@@ -30,7 +30,7 @@
             <field name="code">model.auto_change_sla_resolve_status()</field>
             <field name="interval_number">4</field>
             <field name="interval_type">minutes</field>
-         
+
         </record>
 
         <record id="sequence_ticket_seq" model="ir.sequence">
@@ -38,6 +38,15 @@
             <field name="code">ticket.management</field>
             <field name="prefix">2081/82/TIK</field>
             <field name="padding">5</field>
+            <field eval="1" name="number_increment"/>
+            <field eval="False" name="company_id"/>
+        </record>
+
+
+        <record id="sequence_ticket_type_seq" model="ir.sequence">
+            <field name="name">Ticket type Sequence</field>
+            <field name="code">ticket.type</field>
+            <field name="padding">0</field>
             <field eval="1" name="number_increment"/>
             <field eval="False" name="company_id"/>
         </record>
