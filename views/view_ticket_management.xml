@@ -19,6 +19,7 @@
                        decoration-success="state == 'closed'"
                        decoration-info="state != 'closed'"/>
                 <field name="company_id" string="Company"/>
+                <field name="department_id" string="Department"/>
                 <field name="user_id" string="User Name" optional="hide"/>
                 <field name="team_id" string="Department" optional="hide"/>
 
