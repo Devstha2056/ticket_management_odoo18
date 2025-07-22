@@ -372,7 +372,7 @@
                     <separator/>
                     <filter string="Created By" name="User" domain="[]" context="{'group_by':'user_id'}"/>
                     <separator/>
-                    <filter name="department_id" string="Department" d context="{'group_by': 'department_id'}" />
+                    <filter name="department_id" string="Department"  context="{'group_by': 'department_id'}" />
                 </group>
                 <separator/>
                 <filter string="High Priority" name="priority" domain="[('priority', 'in', ['urgent', 'high'])]"/>
