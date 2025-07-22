@@ -2,9 +2,6 @@ from datetime import datetime, timedelta
 import pytz
 from odoo import models, fields, api
 from odoo.exceptions import UserError, ValidationError
-import random
-import string
-import requests
 import  logging
 _logger = logging.getLogger(__name__)
 
@@ -21,9 +18,13 @@ class TicketsManagement(models.Model):
     employee_ids = fields.Many2many('hr.employee',related='team_id.employee_ids',string='Team Members', readonly=True)
     employee_ids_id = fields.Many2one('hr.employee',string='Assign User', domain="[('id', 'in', employee_ids)]")
     employee_id = fields.Many2one('hr.employee', string='Employee', tracking=True)
+
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company,tracking=True)
+
     user_id = fields.Many2one('res.users', string='Responsible User', default=lambda self: self.env.user, tracking=True,
                               domain="[('company_id', '=', company_id)]")
+    
+    department_id = fields.Many2one('hr.department', string='Department', related='employee_id.department_id', store=True, tracking=True)   
 
     customer_id = fields.Many2one('res.partner', string='Customer', default=lambda self: self.env.user.partner_id,tracking=True)
     ticket_type = fields.Many2one('ticket.type', string='Ticket Type')
@@ -388,25 +389,21 @@ class TicketsManagement(models.Model):
                 )
         return super().unlink()
 
-
     @api.model
     def auto_close_tickets(self):
-        # Get the current time and subtract 2 minutes to find tickets to close
-        now = fields.Datetime.now()  # Get the current date and time
-        two_days_ago = now - timedelta(days=2)  # Get the time from 2 minutes ago
+        now = fields.Datetime.now()
+        today_start = datetime.combine(now, datetime.min.time())
+        two_days_ago = now - timedelta(days=2)
 
-        # Find all tickets in 'client_feedback' state with a feedback_date older than 2 minutes
         tickets_to_close = self.search([
             ('state', '=', 'client_feedback'),
-            ('feedback_date', '<=', two_days_ago),
-        ])
 
-        # Close tickets that meet the criteria
-        for ticket in tickets_to_close:
-            ticket.write({
-                'state': 'closed',  # Update the ticket state to 'closed'
-                'closed_date': now  # Optionally, set the closed date to now
-            })
+        ])
+        _logger.info(f'================hii dev========={tickets_to_close}================================')
+
+        for record in tickets_to_close:
+            record.write({'state': 'closed', 'closed_date': now })
+
 
     def get_details(self):
         """ Returns different counts for displaying in dashboard"""
