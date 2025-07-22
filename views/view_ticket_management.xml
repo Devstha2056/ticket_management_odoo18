@@ -88,6 +88,10 @@
                                     <span t-esc="record.customer_id.value"/>
                                 </div>
                                 <div>
+                                    <strong>Department Name:</strong>
+                                    <span t-esc="record.department_id.value"/>
+                                </div>
+                                <div>
                                     <strong>Priority:</strong>
                                     <span t-esc="record.priority.value"/>
                                 </div>
@@ -367,6 +371,8 @@
                     <filter string="Company" name="Company" domain="[]" context="{'group_by':'company_id'}"/>
                     <separator/>
                     <filter string="Created By" name="User" domain="[]" context="{'group_by':'user_id'}"/>
+                    <separator/>
+                    <filter name="department_id" string="Department" d context="{'group_by': 'department_id'}" />
                 </group>
                 <separator/>
                 <filter string="High Priority" name="priority" domain="[('priority', 'in', ['urgent', 'high'])]"/>
