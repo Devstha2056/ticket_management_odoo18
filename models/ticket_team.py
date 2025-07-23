@@ -19,10 +19,8 @@ class Team(models.Model):
 
     employee_ids = fields.Many2many('hr.employee', string='Member')
 
-    manager_id = fields.Many2one('hr.employee', string='Manager', related='employee_ids.parent_id', store=True, tracking=True)
-
-    
-    
-
-
-
+    manager_id = fields.Many2one('hr.employee', string='Manager', required=True, tracking=True,
+                                  domain="[('company_id', '=', company_id)]",
+                                  help="The manager of the team, responsible for overseeing the team's operations.")        
+  
+   
