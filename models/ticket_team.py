@@ -8,6 +8,7 @@ class Team(models.Model):
     _rec_name = 'department_id'
 
     department_id = fields.Many2one('hr.department', string='Department', required=True)
+    
 
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company, tracking=True)
 
@@ -17,6 +18,11 @@ class Team(models.Model):
     email = fields.Char(string='Email')
 
     employee_ids = fields.Many2many('hr.employee', string='Member')
+
+    manager_id = fields.Many2one('hr.employee', string='Manager', related='employee_ids.parent_id', store=True, tracking=True)
+
+    
+    
 
 
 
