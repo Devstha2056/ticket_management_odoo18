@@ -66,6 +66,28 @@
                 </div>
             </field>
         </record>
+
+         <record id="ticket_mail_template_rejected" model="mail.template">
+            <field name="name">Ticket Template Rejcted</field>
+            <field name="model_id" ref="tickets_management.model_ticket_management"/>
+            <field name="subject">Ticket Rejected</field>
+            <field name="email_from">shresthadevendra2056@gmail.com</field>
+            <field name="email_to">{{ object.customer_id.email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family:Verdana, Arial,sans-serif; color:#454748; background-color:#F1F1F1; padding:16px;">
+                    <div style="background-color:white; padding:16px; text-align:center;">
+                       <p>Dear <t t-out="object.customer_id.name or 'Customer'"/>,</p>
+                        <p>Your Ticket Number <t t-out="object.random_ticket or ''"/> has been Rejected due to <t t-out="object.remark or ''"/> .Thank You!!!!!</p>
+                        <p>
+                            <a t-att-href="object.get_signup_url()"
+                               style="background-color:#875A7B; padding:8px 16px; text-decoration:none; color:#fff; border-radius:5px; font-size:13px;">
+                                Check Ticket Status
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </field>
+        </record>
     </data>
 </odoo>
 

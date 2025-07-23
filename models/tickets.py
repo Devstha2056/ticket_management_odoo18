@@ -141,16 +141,16 @@ class TicketsManagement(models.Model):
                 now = datetime.now()
                 if record.priority == 'urgent':
                     record.respond_deadline = now + timedelta(minutes=30)
-                    record.resolve_deadline = now + timedelta(hours=6)
+                    record.resolve_deadline = now + timedelta(hours=4)
                 elif record.priority == 'high':
                     record.respond_deadline = now + timedelta(hours=1)
-                    record.resolve_deadline = now + timedelta(hours=8)
+                    record.resolve_deadline = now + timedelta(hours=24)
                 elif record.priority == 'medium':
-                    record.respond_deadline = now + timedelta(hours=1)
-                    record.resolve_deadline = now + timedelta(hours=36)
+                    record.respond_deadline = now + timedelta(hours=4)
+                    record.resolve_deadline = now + timedelta(hours=72)
                 elif record.priority == 'low':
-                    record.respond_deadline = now + timedelta(hours=2)
-                    record.resolve_deadline = now + timedelta(hours=48)
+                    record.respond_deadline = now + timedelta(hours=8)
+                    record.resolve_deadline = now + timedelta(hours=120)
             else:
                 record.respond_deadline = False
                 record.resolve_deadline = False
@@ -365,7 +365,7 @@ class TicketsManagement(models.Model):
             vals["random_ticket"] = self.env["ir.sequence"].next_by_code("ticket.management") or 'New'
 
         return super(TicketsManagement, self).create(vals)
-
+#self write
     def write(self, vals):
         if 'state' in vals:
             vals['last_stage_update'] = fields.Datetime.now()
@@ -388,7 +388,7 @@ class TicketsManagement(models.Model):
                     "You can only delete tickets are in Draft and Open state!"
                 )
         return super().unlink()
-
+#auto closed ticket
     @api.model
     def auto_close_tickets(self):
         now = fields.Datetime.now()
@@ -404,7 +404,7 @@ class TicketsManagement(models.Model):
         for record in tickets_to_close:
             record.write({'state': 'closed', 'closed_date': now })
 
-
+#dashboard details
     def get_details(self):
         """ Returns different counts for displaying in dashboard"""
         today = datetime.today()

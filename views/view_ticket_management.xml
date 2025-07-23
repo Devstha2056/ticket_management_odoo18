@@ -54,6 +54,7 @@
                 <field name="create_date"/>
                 <field name="ticket_type"/>
                 <field name="customer_id"/>
+                <field name="department_id"/>
                 <field name="parent"/>
                 <field name="child_menu"/>
                 <field name="grandchild_menu"/>
