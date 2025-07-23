@@ -23,16 +23,14 @@
             <sheet>
                   <div class="oe_title">
                         <h1>
-                            <label for="department_id" string="Department Name" class="oe_edit_only"/>
+                            <label for="department_id" string="Department Name" class="oe_edit_only" options="{'no_create': True}"/>
                             <field name="department_id" placeholder="Enter Team Name..." nolabel="1"/>
                         </h1>
                     </div>
 
                 <group>
                     <group>
-                        <field name="user_id" string="Team Leader"/>
-                        <field name="manager_id" string="Manager" options="{'no_create': True}"/>
-
+                        <field name="manager_id" options="{'no_create': True}"/>
                         <field name="email"/>
                         <field name="company_id" invisible="1"/>
                     </group>
