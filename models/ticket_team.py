@@ -9,7 +9,6 @@ class Team(models.Model):
 
     department_id = fields.Many2one('hr.department', string='Department', required=True)
 
-
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company, tracking=True)
 
     user_id = fields.Many2one('res.users', string='Responsible User', default=lambda self: self.env.user, tracking=True,

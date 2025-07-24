@@ -250,8 +250,25 @@ class TicketsManagement(models.Model):
             template = self.env.ref('tickets_management.ticket_mail_template_assign')
             if template:
                 template.send_mail(self.id, force_send=True)
+
+        elif not self.employee_ids_id:
+
+            return {
+            'type': 'ir.actions.act_window',
+            'name': 'Create User',
+            'res_model': 'res.users',
+            'view_mode': 'form',
+            'view_id': self.env.ref('base.view_users_simple_form').id,
+            'target': 'new',
+            'context': {
+                'default_partner_id': self.customer_id.id,
+                'default_company_id': self.company_id.id,
+                'default_employee_ids': [(6, 0, [self.employee_ids_id.id])],
+            }
+        }
         else:
-            raise UserError("The assigned employee does not have a linked user or partner.")
+            raise UserError("No user found for the selected employee. Please assign a user to the employee first.")       
+       
 
     def action_complete(self):
         self._check_state('work_in', 'work_out', "Please check the ticket first!")
