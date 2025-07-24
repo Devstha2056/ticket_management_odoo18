@@ -243,7 +243,7 @@ class TicketsManagement(models.Model):
             self.message_post(
                 partner_ids=[partner_id],  # Ensure only valid partner_id is used
                 subject="Ticket Assigned",
-                body=f"The ticket number {self.random_ticket} has been assigned to you.",
+                body=f"The ticket number {self.random_ticket} has been assigned to {self.employee_ids_id}.",
             )
 
             # Send email notification
@@ -252,6 +252,27 @@ class TicketsManagement(models.Model):
                 template.send_mail(self.id, force_send=True)
         else:
             raise UserError("The assigned employee does not have a linked user or partner.")
+
+    def action_assgin_to_manager(self):
+        self._check_state('acknowledgement', 'work_in', "Please assign the ticket first!")
+
+        if self.team_id and self.team_id.manager_id and self.team_id.manager_id.user_id and self.team_id.manager_id.user_id.partner_id:
+            partner_id = self.team_id.manager_id.user_id.partner_id.id
+
+            # Send in-app notification
+            self.message_post(
+                partner_ids=[partner_id],
+                subject="Ticket Assigned to Manager",
+                body=f"The ticket number {self.random_ticket} has been assigned to the manager {self.team_id.manager_id.name}.",
+            )
+
+            # Send email notification
+            template = self.env.ref('tickets_management.ticket_mail_template_assign')
+            if template:
+                template.send_mail(self.id, force_send=True)
+        else:
+            raise UserError("The team does not have a manager with a linked user or partner.")  
+        
 
     def action_complete(self):
         self._check_state('work_in', 'work_out', "Please check the ticket first!")
@@ -269,6 +290,9 @@ class TicketsManagement(models.Model):
             template = self.env.ref('tickets_management.ticket_mail_template_rejected')
             if template:
                 template.send_mail(self.id, force_send=True)
+
+                 
+
 
     def action_closed(self):
         self._check_state('client_feedback', 'closed', "Only client feedback tickets can be closed.")
