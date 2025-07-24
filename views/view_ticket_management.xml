@@ -189,6 +189,13 @@
                             groups="tickets_management.group_employee"
                             class="btn btn-primary"/>
 
+                    <button name="action_assign_to_manager"
+                            type="object"
+                            string="Assign to Manager"
+                            invisible="state != 'work_in'"
+                            groups="tickets_management.group_employee"
+                            class="btn btn-primary"/>
+
                     <button name="action_complete"
                             type="object"
                             string="Work Delivered"
@@ -266,7 +273,11 @@
 
                                options="{'no_create': True}" readonly="state != 'draft'"
                                groups="tickets_management.group_admin,tickets_management.group_supervisor"/>
-
+                               
+                        <field name="manager_ids_id" string="Assign Manager"
+                               invisible="state in ('draft','open')"
+                               options="{'no_create': True}"      
+                                groups="tickets_management.group_admin,tickets_management.group_supervisor"/>  
 
                         <field name="company_id" string="Company"
                                readonly="state != 'draft'" options="{'no_create': True}"

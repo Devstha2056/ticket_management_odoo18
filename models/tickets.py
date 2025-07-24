@@ -17,6 +17,9 @@ class TicketsManagement(models.Model):
     team_id = fields.Many2one('ticket.team', string='Team')
     employee_ids = fields.Many2many('hr.employee',related='team_id.employee_ids',string='Team Members', readonly=True)
     employee_ids_id = fields.Many2one('hr.employee',string='Assign User', domain="[('id', 'in', employee_ids)]")
+    manager_ids = fields.Many2one('hr.employee',related='team_id.manager_id',string='Manager', readonly=True)
+    manager_ids_id = fields.Many2one('hr.employee',string='Assign Manager', domain="[('id', 'in', manager_ids)]")
+    # Employee and Department Fields
     employee_id = fields.Many2one('hr.employee', string='Employee', tracking=True)
 
     company_id = fields.Many2one('res.company', default=lambda self: self.env.company,tracking=True)
@@ -253,8 +256,8 @@ class TicketsManagement(models.Model):
         else:
             raise UserError("The assigned employee does not have a linked user or partner.")
 
-    def action_assgin_to_manager(self):
-        self._check_state('acknowledgement', 'work_in', "Please assign the ticket first!")
+    def action_assign_to_manager(self):
+        self._check_state('work_in', 'work_in', "Please assign the ticket first!")
 
         if self.team_id and self.team_id.manager_id and self.team_id.manager_id.user_id and self.team_id.manager_id.user_id.partner_id:
             partner_id = self.team_id.manager_id.user_id.partner_id.id
