@@ -279,7 +279,7 @@
                         <field name="company_id" string="Company"
                                readonly="state != 'draft'" options="{'no_create': True}"
                                groups="tickets_management.group_admin,tickets_management.group_supervisor"/>
-                        
+
                         <field name="department_id" string="Department" force_save="True"
                                readonly="state != 'draft'" options="{'no_create': True}"
                                />    
