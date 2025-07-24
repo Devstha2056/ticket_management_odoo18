@@ -246,7 +246,7 @@ class TicketsManagement(models.Model):
             self.message_post(
                 partner_ids=[partner_id],  # Ensure only valid partner_id is used
                 subject="Ticket Assigned",
-                body=f"The ticket number {self.random_ticket} has been assigned to {self.employee_ids_id}.",
+                body=f"The ticket number {self.random_ticket} has been assigned to {self.employee_ids_id.name}.",
             )
 
             # Send email notification
@@ -270,7 +270,7 @@ class TicketsManagement(models.Model):
             )
 
             # Send email notification
-            template = self.env.ref('tickets_management.ticket_mail_template_assign')
+            template = self.env.ref('tickets_management.ticket_mail_template_manager_assign')
             if template:
                 template.send_mail(self.id, force_send=True)
         else:

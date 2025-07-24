@@ -274,7 +274,7 @@
                                options="{'no_create': True}" readonly="state != 'draft'"
                                groups="tickets_management.group_admin,tickets_management.group_supervisor"/>
                                
-                        <field name="manager_ids_id" string="Assign Manager"
+                        <field name="manager_ids" string="Assign Manager"
                                invisible="state in ('draft','open')"
                                options="{'no_create': True}"      
                                 groups="tickets_management.group_admin,tickets_management.group_supervisor"/>  

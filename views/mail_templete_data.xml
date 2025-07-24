@@ -45,6 +45,30 @@
             </field>
         </record>
 
+        
+         <record id="ticket_mail_template_manager_assign" model="mail.template">
+            <field name="name">Ticket Template</field>
+            <field name="model_id" ref="tickets_management.model_ticket_management"/>
+            <field name="subject">Ticket Assigned to Manager</field>
+            <field name="email_from">shresthadevendra2056@gmail.com</field>
+            <field name="email_to">{{ object.manager_ids_id.work_email }}</field>
+            <field name="body_html" type="html">
+                <div style="font-family:Verdana, Arial,sans-serif; color:#454748; background-color:#F1F1F1; padding:16px;">
+                    <div style="background-color:white; padding:16px; text-align:center;">
+                        <p>Dear <t t-out="object.manager_ids_id.name or 'Manager'"/>,</p>
+                        <p>Ticket Number <t t-out="object.random_ticket or ''"/> has been Assigned to You. You can track its Tickets by clicking the link below:</p>
+                        <p>
+                            <a t-att-href="object.get_signup_url()"
+                               style="background-color:#875A7B; padding:8px 16px;   text-decoration:none; color:#fff; border-radius:5px; font-size:13px;">
+                                Check Ticket Status
+                            </a>
+                        </p>        
+                    </div>
+                </div>
+            </field>
+        </record>               
+
+
         <record id="ticket_mail_template_closed" model="mail.template">
             <field name="name">Ticket Template</field>
             <field name="model_id" ref="tickets_management.model_ticket_management"/>
