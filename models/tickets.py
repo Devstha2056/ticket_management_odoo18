@@ -96,17 +96,17 @@ class TicketsManagement(models.Model):
     # other information
     phone = fields.Char(string='Phone Number', compute='_compute_phone', store=True)
 
-    @api.depends('customer_id.phone')
+    @api.depends('user_id.phone')
     def _compute_phone(self):
         for rec in self:
-            rec.phone = rec.customer_id.phone if rec.customer_id else ''
+            rec.phone = rec.user_id.phone if rec.user_id else ''
 
     email = fields.Char(string='Email', compute='_compute_email', store=True)
 
-    @api.depends('customer_id')
+    @api.depends('user_id')
     def _compute_email(self):
         for record in self:
-            record.email = record.customer_id.email if record.customer_id else ''
+            record.email = record.user_id.email if record.user_id else ''
 
     description = fields.Html(string='Description', store=True)
     customer_rating = fields.Selection(selection=[
