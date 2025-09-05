@@ -55,6 +55,10 @@ class TicketsManagement(models.Model):
     grandchild_menu = fields.Many2one('menu.option', string='Grandchild Module',domain="[('child_id', '=', child_menu)]")
     child_menu_ids = fields.Many2many('menu.module', string='Child Menus')
     grandchild_menu_ids = fields.Many2many('menu.option', string='Grandchild Menus')
+    #koili management
+
+    device_number = fields.Char(string="Device Serial Number")
+    bank = fields.Many2one('res.bank',string="Bank")
 
     # State Fields
     state = fields.Selection([
@@ -122,7 +126,7 @@ class TicketsManagement(models.Model):
     comment = fields.Text(string="Comment", help="Additional comments or feedback about the customer.")
 
     # Image Attachments Fields
-    capture_images = fields.One2many('image.storage', 'image_id', string='Attached Images', store=True, tracking=True)
+    capture_images = fields.One2many('image.storage', 'image_id', string='Attached File', store=True, tracking=True)
     capture_image = fields.Binary(string='Attached File', store=True)
     # Random Code and Sequence Fields
     random_code = fields.Char(string='Random Code', readonly=True)

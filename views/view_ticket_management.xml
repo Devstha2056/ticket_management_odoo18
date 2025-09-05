@@ -18,8 +18,8 @@
                 <field name="state" string="Ticket Status" widget="badge"
                        decoration-success="state == 'closed'"
                        decoration-info="state != 'closed'"/>
-                <field name="company_id" string="Company"/>
-                <field name="department_id" string="Department"/>
+<!--                <field name="company_id" string="Company"/>-->
+<!--                <field name="department_id" string="Department"/>-->
                 <field name="user_id" string="User Name" optional="hide"/>
                 <field name="team_id" string="Department" optional="hide"/>
 
@@ -28,12 +28,13 @@
                        decoration-warning="priority == 'high'"
                        decoration-primary="priority == 'medium'"
                        decoration-muted="priority == 'low'"/>
-                <field name="child_menu" string="Module"/>
-                <field name="grandchild_menu" string="Sub Module"/>
+                <!--                <field name="child_menu" string="Module"/>-->
+                <!--                <field name="grandchild_menu" string="Sub Module"/>-->
                 <field name="description" string="Ticket Heading"/>
-                <field name="remark" string="Remarks"/>
+                <field name="device_number"/>
+                <field name="remark" string="Description"/>
                 <field name="ticket_type" string="Ticket Type"/>
-                <field name="parent" string="Application" optional="hide"/>
+                <field name="parent" string="Issue Type" optional="hide"/>
 
                 <field name="sequence_number" string="Sequence" invisible="1"/>
                 <!--                <field name="sla_status_done_count" string="SLA Count" optional="hide"/>-->
@@ -63,6 +64,7 @@
                 <field name="random_code"/>
                 <field name="random_ticket"/>
                 <field name="state"/>
+                <field name="device_number"/>
                 <field name="sla_response_status"/>
                 <field name="sla_resolve_status"/>
                 <field name="closed_date"/>
@@ -77,7 +79,7 @@
                             <!-- Ticket information -->
                             <div class="o_kanban_details">
                                 <div>
-                                    <strong>Remarks:</strong>
+                                    <strong>Description:</strong>
                                     <span t-esc="record.remark.value"/>
                                 </div>
                                 <div>
@@ -113,17 +115,21 @@
                                     <span t-esc="record.ticket_type.value"/>
                                 </div>
                                 <div>
-                                    <strong>Application:</strong>
+                                    <strong>Issue Type:</strong>
                                     <span t-esc="record.parent.value"/>
                                 </div>
                                 <div>
-                                    <strong>Module:</strong>
-                                    <span t-esc="record.child_menu.value"/>
+                                    <strong>Device Serial Number:</strong>
+                                    <span t-esc="record.device_number.value"/>
                                 </div>
-                                <div>
-                                    <strong>Sub Module:</strong>
-                                    <span t-esc="record.grandchild_menu.value"/>
-                                </div>
+                                <!--                                <div>-->
+                                <!--                                    <strong>Module:</strong>-->
+                                <!--                                    <span t-esc="record.child_menu.value"/>-->
+                                <!--                                </div>-->
+                                <!--                                <div>-->
+                                <!--                                    <strong>Sub Module:</strong>-->
+                                <!--                                    <span t-esc="record.grandchild_menu.value"/>-->
+                                <!--                                </div>-->
                                 <div>
                                     <strong>SLA Respond:</strong>
                                     <span t-esc="record.sla_response_status.value"/>
@@ -172,13 +178,13 @@
                     <button name="action_closed"
                             type="object"
                             string="Closed"
-                           invisible="state != 'client_feedback'"
+                            invisible="state != 'client_feedback'"
                             class="btn btn-danger"/>
 
                     <button name="action_open"
                             type="object"
                             string="Reopen"
-                           invisible="state != 'client_feedback'"
+                            invisible="state != 'client_feedback'"
                             class="btn btn-primary"
                             confirm="Are you sure to open Ticket?"/>
 
@@ -227,6 +233,7 @@
                     <button name="action_send_email"
                             type="object"
                             string="Send Email"
+                            invisible="state == 'closed'"
                             icon="fa-envelope"
                             groups="tickets_management.group_admin,tickets_management.group_employee"
                             confirm="Are you sure to send mail?"
@@ -235,6 +242,7 @@
                     <button name="action_open_priority_wizard"
                             type="object"
                             string="Change Priority"
+                            invisible="state == 'closed'"
                             groups="tickets_management.group_user"
                             class="btn-primary"/>
 
@@ -244,14 +252,13 @@
                 <sheet>
 
 
-
                     <div class="oe_title">
-                            <h1>
-                                <label for="random_ticket" string="Ticket Number" class="oe_edit_only"/>
-                                <field name="random_ticket" string="Ticket Number"
-                                       readonly="state != False"/>
-                            </h1>
-                        </div>
+                        <h1>
+                            <label for="random_ticket" string="Ticket Number" class="oe_edit_only"/>
+                            <field name="random_ticket" string="Ticket Number"
+                                   readonly="state != False"/>
+                        </h1>
+                    </div>
                     <group>
                         <field name="ticket_type" string="Ticket Type"
                                readonly="state != 'draft'" options="{'no_create': True}" required="1"/>
@@ -259,50 +266,61 @@
                         <field name="team_id" string="Team"
                                invisible="state in ('draft','open')"
 
-                              readonly="state != 'acknowledgement'" options="{'no_create': True}"/>
+                               readonly="state != 'acknowledgement'" options="{'no_create': True}"/>
 
                         <field name="employee_ids_id" string="Assign User"
                                invisible="state in ('draft','open')"
 
-                              readonly="state != 'acknowledgement'" options="{'no_create': True}"/>
+                               readonly="state != 'acknowledgement'" options="{'no_create': True}"/>
 
-                        <field name="user_id" string="Reported By/Owner"
+                        <field name="user_id" string="Merchant Name"
 
                                options="{'no_create': True}" readonly="state != 'draft'"
                                groups="tickets_management.group_admin,tickets_management.group_supervisor"/>
-                               
+
                         <field name="manager_ids" string="Assign Manager"
                                invisible="state in ('draft','open')"
-                               options="{'no_create': True}"      
-                                groups="tickets_management.group_admin,tickets_management.group_supervisor"/>  
-
-                        <field name="company_id" string="Company"
-                               readonly="state != 'draft'" options="{'no_create': True}"
+                               options="{'no_create': True}"
                                groups="tickets_management.group_admin,tickets_management.group_supervisor"/>
 
-                        <field name="department_id" string="Department" force_save="True"
-                               readonly="state != 'draft'" options="{'no_create': True}"
-                               />    
-<!--and  priority  !=  False'-->
+                         <field name="device_number" string="Device Serial Number"
+                               readonly="state != 'draft'"
+                              />
+                        <field name="bank" string="Bank"
+                               readonly="state != 'draft'"
+                               required="1"/>
+
+<!--                        <field name="company_id" string="Company"-->
+<!--                               readonly="state != 'draft'" options="{'no_create': True}"-->
+<!--                               groups="tickets_management.group_admin,tickets_management.group_supervisor"/>-->
+
+<!--                        <field name="department_id" string="Department" force_save="True"-->
+<!--                               readonly="state != 'draft'" options="{'no_create': True}"-->
+<!--                        />-->
+                        <!--and  priority  !=  False'-->
                         <field name="priority" string="Priority"
                                readonly="state != 'draft'"
 
                                force_save="True" required="1"/>
-                        <field name="parent" string="Application"
+                        <field name="parent" string="Issue Type"
                                readonly="state != 'draft'" options="{'no_create': True}"
                                required="1"/>
 
-                        <field name="child_menu" string="Module"
-                               readonly="state != 'draft'" options="{'no_create': True}"/>
 
-                        <field name="grandchild_menu" string="Sub Module"
-                               readonly="state != 'draft'" options="{'no_create': True}"/>
+                        <!--                        <field name="child_menu" string="Module"-->
+                        <!--                               readonly="state != 'draft'" options="{'no_create': True}"/>-->
 
-                        <field name="remark" string="Remarks" default_focus="1"
+                        <!--                        <field name="grandchild_menu" string="Sub Module"-->
+                        <!--                               readonly="state != 'draft'" options="{'no_create': True}"/>-->
+
+                        <field name="remark" string="Description" default_focus="1"
                                readonly="state == 'closed'"/>
 
                         <field name="employee_ids" invisible="1"/>
+
                         <field name="capture_images" readonly="state != 'draft'"/>
+
+
                     </group>
                     <group>
                         <field name="respond_deadline" invisible="1"/>
@@ -382,7 +400,7 @@
                     <separator/>
                     <filter string="Created By" name="User" domain="[]" context="{'group_by':'user_id'}"/>
                     <separator/>
-                    <filter name="department_id" string="Department"  context="{'group_by': 'department_id'}" />
+                    <filter name="department_id" string="Department" context="{'group_by': 'department_id'}"/>
                 </group>
                 <separator/>
                 <filter string="High Priority" name="priority" domain="[('priority', 'in', ['urgent', 'high'])]"/>
@@ -411,7 +429,17 @@
 
         </field>
     </record>
-
+   <record id="res_bank_action" model="ir.actions.act_window">
+        <field name="name">Bank</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.bank</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                No Bank found! Let's create one.
+            </p>
+        </field>
+    </record>
 
 </odoo>
 

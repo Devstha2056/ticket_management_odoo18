@@ -3,6 +3,7 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 ticket_management_admin,ticket.management,model_ticket_management,tickets_management.group_admin,1,1,1,1
 ticket_management_user,ticket.management,model_ticket_management,tickets_management.group_user,1,1,1,0
 ticket_management_employee,ticket.management,model_ticket_management,tickets_management.group_employee,1,1,1,0
+ticket_management_employee,ticket.management,model_ticket_management,base.group_portal,1,1,1,1
 
 ticket_type_admin,ticket.type,model_ticket_type,tickets_management.group_admin,1,1,1,1
 ticket_type_employee,ticket.type,model_ticket_type,tickets_management.group_employee,1,1,1,0

@@ -10,8 +10,12 @@
             <field name="body_html" type="html">
                 <div style="font-family:Verdana, Arial,sans-serif; color:#454748; background-color:#F1F1F1; padding:16px;">
                     <div style="background-color:white; padding:16px; text-align:center;">
-                        <p>Dear <t t-out="object.customer_id.name or 'Customer'"/>,</p>
-                        <p>Your Ticket Number <t t-out="object.random_ticket or ''"/> has been acknowledged. You can track its status by clicking the link below:</p>
+                        <p>Dear<t t-out="object.customer_id.name or 'Customer'"/>,
+                        </p>
+                        <p>Your Ticket Number
+                            <t t-out="object.random_ticket or ''"/>
+                            has been acknowledged. You can track its status by clicking the link below:
+                        </p>
                         <p>
                             <a t-att-href="object.get_signup_url()"
                                style="background-color:#875A7B; padding:8px 16px; text-decoration:none; color:#fff; border-radius:5px; font-size:13px;">
@@ -32,8 +36,12 @@
             <field name="body_html" type="html">
                 <div style="font-family:Verdana, Arial,sans-serif; color:#454748; background-color:#F1F1F1; padding:16px;">
                     <div style="background-color:white; padding:16px; text-align:center;">
-                        <p>Dear <t t-out="object.employee_ids_id.name or 'Employee'"/>,</p>
-                        <p>Ticket Number <t t-out="object.random_ticket or ''"/> has been Assign to You. You can track its Tickets by clicking the link below:</p>
+                        <p>Dear<t t-out="object.employee_ids_id.name or 'Employee'"/>,
+                        </p>
+                        <p>Ticket Number
+                            <t t-out="object.random_ticket or ''"/>
+                            has been Assign to You. You can track its Tickets by clicking the link below:
+                        </p>
                         <p>
                             <a t-att-href="object.get_signup_url()"
                                style="background-color:#875A7B; padding:8px 16px; text-decoration:none; color:#fff; border-radius:5px; font-size:13px;">
@@ -45,8 +53,8 @@
             </field>
         </record>
 
-        
-         <record id="ticket_mail_template_manager_assign" model="mail.template">
+
+        <record id="ticket_mail_template_manager_assign" model="mail.template">
             <field name="name">Ticket Template</field>
             <field name="model_id" ref="tickets_management.model_ticket_management"/>
             <field name="subject">Ticket Assigned to Manager</field>
@@ -55,18 +63,22 @@
             <field name="body_html" type="html">
                 <div style="font-family:Verdana, Arial,sans-serif; color:#454748; background-color:#F1F1F1; padding:16px;">
                     <div style="background-color:white; padding:16px; text-align:center;">
-                        <p>Dear <t t-out="object.manager_ids.name or 'Manager'"/>,</p>
-                        <p>Ticket Number <t t-out="object.random_ticket or ''"/> has been Assigned to You. You can track its Tickets by clicking the link below:</p>
+                        <p>Dear<t t-out="object.manager_ids.name or 'Manager'"/>,
+                        </p>
+                        <p>Ticket Number
+                            <t t-out="object.random_ticket or ''"/>
+                            has been Assigned to You. You can track its Tickets by clicking the link below:
+                        </p>
                         <p>
                             <a t-att-href="object.get_signup_url()"
                                style="background-color:#875A7B; padding:8px 16px;   text-decoration:none; color:#fff; border-radius:5px; font-size:13px;">
                                 Check Ticket Status
                             </a>
-                        </p>        
+                        </p>
                     </div>
                 </div>
             </field>
-        </record>               
+        </record>
 
 
         <record id="ticket_mail_template_closed" model="mail.template">
@@ -78,8 +90,12 @@
             <field name="body_html" type="html">
                 <div style="font-family:Verdana, Arial,sans-serif; color:#454748; background-color:#F1F1F1; padding:16px;">
                     <div style="background-color:white; padding:16px; text-align:center;">
-                       <p>Dear <t t-out="object.customer_id.name or 'Customer'"/>,</p>
-                        <p>Your Ticket Number <t t-out="object.random_ticket or ''"/> has been Closed.Thank You!!!!!</p>
+                        <p>Dear<t t-out="object.customer_id.name or 'Customer'"/>,
+                        </p>
+                        <p>Your Ticket Number
+                            <t t-out="object.random_ticket or ''"/>
+                            has been Closed.Thank You!!!!!
+                        </p>
                         <p>
                             <a t-att-href="object.get_signup_url()"
                                style="background-color:#875A7B; padding:8px 16px; text-decoration:none; color:#fff; border-radius:5px; font-size:13px;">
@@ -91,7 +107,7 @@
             </field>
         </record>
 
-         <record id="ticket_mail_template_rejected" model="mail.template">
+        <record id="ticket_mail_template_rejected" model="mail.template">
             <field name="name">Ticket Template Rejcted</field>
             <field name="model_id" ref="tickets_management.model_ticket_management"/>
             <field name="subject">Ticket Rejected</field>
@@ -100,8 +116,14 @@
             <field name="body_html" type="html">
                 <div style="font-family:Verdana, Arial,sans-serif; color:#454748; background-color:#F1F1F1; padding:16px;">
                     <div style="background-color:white; padding:16px; text-align:center;">
-                       <p>Dear <t t-out="object.customer_id.name or 'Customer'"/>,</p>
-                        <p>Your Ticket Number <t t-out="object.random_ticket or ''"/> has been Rejected due to <t t-out="object.remark or ''"/> .Thank You!!!!!</p>
+                        <p>Dear<t t-out="object.customer_id.name or 'Customer'"/>,
+                        </p>
+                        <p>Your Ticket Number
+                            <t t-out="object.random_ticket or ''"/>
+                            has been Rejected due to
+                            <t t-out="object.remark or ''"/>
+                            .Thank You!!!!!
+                        </p>
                         <p>
                             <a t-att-href="object.get_signup_url()"
                                style="background-color:#875A7B; padding:8px 16px; text-decoration:none; color:#fff; border-radius:5px; font-size:13px;">
@@ -112,6 +134,191 @@
                 </div>
             </field>
         </record>
+
+        <template id="portal_my_home_menu_ticket" inherit_id="portal.portal_my_home">
+            <xpath expr="//div[@id='portal_common_category']" position="inside">
+                <t t-call="portal.portal_docs_entry">
+                    <t t-set="icon" t-value="'/portal/static/src/img/portal-connection.svg'"/>
+                    <t t-set="title">My Tickets</t>
+                    <t t-set="text">View and manage your tickets</t>
+                    <t t-set="url" t-value="'/my/tickets'"/>
+                    <t t-set="config_card" t-value="True"/>
+                </t>
+            </xpath>
+        </template>
+        <template id="portal_my_tickets" name="My Tickets">
+            <t t-call="portal.portal_layout">
+                <div class="o_portal_my_doc">
+                    <h2>My Tickets</h2>
+
+                    <!-- Create Ticket Form -->
+                    <form action="/my/tickets/create" method="post" class="mb-4">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                        <div class="row g-2">
+                            <!--                            &lt;!&ndash; Ticket Number &ndash;&gt;-->
+                            <!--                            <div class="col-md-3">-->
+                            <!--                                <label>Ticket Number</label>-->
+                            <!--                                <input type="text" name="sequence_number" class="form-control" required="1"/>-->
+                            <!--                            </div>-->
+
+                            <!-- Ticket Type -->
+                            <div class="col-md-3">
+                                <label>Ticket Type</label>
+                                <select name="ticket_type" class="form-control" required="1">
+                                    <option value="">Select Type</option>
+                                    <t t-foreach="ticket_types" t-as="type">
+                                        <option t-att-value="type.id" t-esc="type.display_name"/>
+                                    </t>
+                                </select>
+                            </div>
+
+                            <!-- Merchant -->
+                            <!--                            <div class="col-md-3">-->
+                            <!--                                <label>Merchant</label>-->
+                            <!--                                <input type="text" name="user_id" class="form-control"/>-->
+                            <!--                            </div>-->
+
+                            <!--                             <div class="col-md-3">-->
+                            <!--                                <label>Merchant</label>-->
+                            <!--                                <select name="bank" class="form-control">-->
+                            <!--                                    <option value="">Select User</option>-->
+                            <!--                                    <t t-foreach="user_ids" t-as="type">-->
+                            <!--                                        <option t-att-value="type.id" t-esc="type.display_name"/>-->
+                            <!--                                    </t>-->
+                            <!--                                </select>-->
+                            <!--                            </div>-->
+
+                            <!-- Device Serial Number -->
+                            <div class="col-md-3">
+                                <label>Device Serial Number</label>
+                                <input type="text" name="device_number" class="form-control" required="1"/>
+                            </div>
+
+                            <!-- Bank -->
+                            <div class="col-md-3">
+                                <label>Bank</label>
+                                <select name="bank" class="form-control" required="1">
+                                    <option value="">Select Bank</option>
+                                    <t t-foreach="banks" t-as="type">
+                                        <option t-att-value="type.id" t-esc="type.display_name"/>
+                                    </t>
+                                </select>
+                            </div>
+
+                            <!-- Remark -->
+                            <div class="col-md-3">
+                                <label>Remarks</label>
+                                <input type="text" name="remark" class="form-control" required="1"/>
+                            </div>
+                            <!--                              &lt;!&ndash; email &ndash;&gt;-->
+                            <!--                            <div class="col-md-3">-->
+                            <!--                                <label>Email</label>-->
+                            <!--                                <input type="text" name="email" class="form-control"/>-->
+                            <!--                            </div>-->
+                            <!--                            &lt;!&ndash; phone &ndash;&gt;-->
+                            <!--                            <div class="col-md-3">-->
+                            <!--                                <label>Phone</label>-->
+                            <!--                                <input type="text" name="phone" class="form-control"/>-->
+                            <!--                            </div>-->
+
+                            <!-- Priority -->
+                            <div class="col-md-3">
+                                <label>Priority</label>
+                                <select name="priority" class="form-control">
+                                    <option value="urgent">P1 - Urgent</option>
+                                    <option value="high">P2 - High</option>
+                                    <option value="medium">P3 - Medium</option>
+                                    <option value="low">P4 - Low</option>
+                                </select>
+                            </div>
+
+                            <!-- Issue Type -->
+                            <div class="col-md-3">
+                                <label>Issue Type</label>
+                                <select name="parent" class="form-control" required="1">
+                                    <option value="">Select Issue</option>
+                                    <t t-foreach="issue_types" t-as="type">
+                                        <option t-att-value="type.id" t-esc="type.display_name"/>
+                                    </t>
+                                </select>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="col-md-12">
+                                <label>Description</label>
+                                <textarea name="description" class="form-control" rows="3">
+
+                                </textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="g-recaptcha" data-sitekey="6Ldtsr4rAAAAAPORCL1Y95GjU1cwkal4u9mzRRW4">
+
+                                </div>
+                            </div>
+                            <script src="https://www.google.com/recaptcha/api.js">
+
+                            </script>
+                            <!-- Submit -->
+                            <div class="col-md-12 mt-2">
+                                <button type="submit" class="btn btn-primary">Create Ticket</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <!-- Tickets Table -->
+                    <table class="table table-striped mt-4">
+                        <thead>
+                            <tr>
+                                <th>Ticket Number</th>
+                                <th>Ticket Type</th>
+                                <th>Merchant</th>
+                                <th>Device Serial Number</th>
+                                <th>Bank</th>
+                                <th>Remarks</th>
+                                <th>Priority</th>
+                                <th>Issue Type</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="tickets" t-as="ticket">
+                                <tr>
+                                    <td t-esc="ticket.random_ticket"/>
+                                    <td t-esc="ticket.ticket_type.display_name if ticket.ticket_type else ''"/>
+                                    <td t-esc="ticket.user_id.name if ticket.user_id else ''"/>
+                                    <td t-esc="ticket.device_number"/>
+                                    <td t-esc="ticket.bank.display_name if ticket.bank else ''"/>
+                                    <td t-esc="ticket.remark"/>
+                                    <td t-esc="ticket.priority"/>
+                                    <td t-esc="ticket.parent.display_name if ticket.parent else ''"/>
+                                    <td t-esc="ticket.description"/>
+                                    <td t-esc="ticket.state"/>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </template>
+
+        <template id="portal_ticket_success" name="Ticket Success">
+            <t t-call="portal.portal_layout">
+                <div class="o_portal_my_doc">
+                    <h2 class="text-success">✅ Ticket Successfully Created</h2>
+                    <p>Your ticket
+                        <strong>
+                            <t t-esc="ticket.random_ticket"/>
+                        </strong>
+                        has been created successfully.
+                    </p>
+
+                    <a href="/my/tickets" class="btn btn-primary mt-3">Back to My Tickets</a>
+                </div>
+            </t>
+        </template>
+
     </data>
 </odoo>
 

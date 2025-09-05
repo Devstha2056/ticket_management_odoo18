@@ -68,22 +68,27 @@
               sequence="10"/>
 
     <menuitem id="menu_ticket_management_menu_module"
-              name="Application"
+              name="Issue Type"
               parent="menu_ticket_management_configuration"
               action="action_solution_type"
               sequence="10"/>
-
-    <menuitem id="menu_ticket_management_module"
-              name="Module"
+    <menuitem id="menu_ticket_management_res_bank"
+              name="Bank"
               parent="menu_ticket_management_configuration"
-              action="action_menu_module"
-              sequence="10"/>
+              action="res_bank_action"
+              sequence="18"/>
 
-    <menuitem id="menu_ticket_management_option"
-              name="Sub Module"
-              parent="menu_ticket_management_configuration"
-              action="action_menu_option"
-              sequence="10"/>
+<!--    <menuitem id="menu_ticket_management_module"-->
+<!--              name="Module"-->
+<!--              parent="menu_ticket_management_configuration"-->
+<!--              action="action_menu_module"-->
+<!--              sequence="10"/>-->
+
+<!--    <menuitem id="menu_ticket_management_option"-->
+<!--              name="Sub Module"-->
+<!--              parent="menu_ticket_management_configuration"-->
+<!--              action="action_menu_option"-->
+<!--              sequence="10"/>-->
 
 </odoo>
 
